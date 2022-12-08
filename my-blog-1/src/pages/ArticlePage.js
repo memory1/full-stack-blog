@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import axios from 'axios';
 import NotFoundPage from './NotFoundPage';
 import CommentsList from '../components/CommentsList';
@@ -20,13 +20,15 @@ const ArticlePage = () => {
             const headers = token ? {
                 authtoken: token
             } : {};
-            console.log("Token: " + token);
             const response = await axios.get(`/api/articles/${articleId}`, {headers});
             const newArticleInfo = response.data;
             setArticleInfo(newArticleInfo);
-        };
-        loadArticleInfo();
-    }, []);
+        }
+
+        if (isLoading) {
+            loadArticleInfo();
+        }
+    }, [isLoading, user]);
 
     const article = articles.find(article => article.name === articleId);
 
@@ -39,11 +41,6 @@ const ArticlePage = () => {
         const updatedArticle = response.data;
         setArticleInfo(updatedArticle);
     }
-    const navigate = useNavigate();
-    const login = () => {
-
-        navigate('/login');
-    }
 
     if (! article) {
         return <NotFoundPage/>
@@ -54,18 +51,17 @@ const ArticlePage = () => {
             <h1>{
                 article.title
             }</h1>
-
-            <div className='upvotes-section'>
+            <div className="upvotes-section">
                 {
                 user ? <button onClick={addUpvote}>
-                    Upvote</button> : <button onClick={login}>Log in to upvote</button>
+                    {
+                    canUpvote ? 'Upvote' : 'Already Upvoted'
+                }</button> : <button>Log in to upvote</button>
             }
                 <p>This article has {
-                    articleInfo.upvotes + " "
+                    articleInfo.upvotes
                 }
-                    upvote(s),
-
-                </p>
+                    upvote(s)</p>
             </div>
             {
             article.content.map((paragraph, i) => (
@@ -77,7 +73,7 @@ const ArticlePage = () => {
             user ? <AddCommentForm articleName={articleId}
                 onArticleUpdated={
                     updatedArticle => setArticleInfo(updatedArticle)
-                }/> : <button>Log in to add comment</button>
+                }/> : <button>Log in to add a comment</button>
         }
             <CommentsList comments={
                 articleInfo.comments
