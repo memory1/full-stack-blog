@@ -10,8 +10,7 @@ const useUser = () => {
             setUser(user);
             setIsLoading(false);
         })
-        console.log("unsubscribe: " + unsubscribe);
-        console.log("user: " + user + " / isLoading: " + isLoading);
+
         return unsubscribe;
 
     }, []);

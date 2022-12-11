@@ -1,6 +1,10 @@
-import {Link} from 'react-router-dom';
-
+import {Link, useNavigate} from 'react-router-dom';
+import {getAuth, signOut} from 'firebase/auth';
+import useUser from './hooks/useUser';
 const NavBar = () => {
+    const {user} = useUser();
+    const navigate = useNavigate();
+
     return (
         <nav>
             <ul>
@@ -14,20 +18,23 @@ const NavBar = () => {
                     <Link to="/articles">Articles</Link>
                 </li>
                 <li>
-                    <Link to="/login">Log in</Link>
-                </li>
-
-                <li>
                     <Link to="/create-account">Create Account</Link>
                 </li>
-                <li>
-                    <Link to="/logout">Log out</Link>
-                </li>
+                <div className='nav-right'>
+                    {
+                    user ? <button onClick={
+                        () => {
+                            signOut(getAuth());
+                        }
+                    }>Log Out</button> : <button onClick={
+                        () => {
+                            navigate('/login');
+                        }
+                    }>Log in</button>
+                } </div>
             </ul>
-
-
         </nav>
-    )
+    );
 }
 
 export default NavBar;

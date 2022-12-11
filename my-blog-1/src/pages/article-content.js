@@ -1,9 +1,7 @@
 const articles = [
     {
         name: 'learn-react',
-        upvotes: 0,
         title: 'The Fastest Way to Learn React',
-        comments: [],
         content: [`Welcome! Today we're going to be talking about the fastest way to
             learn React. We'll be discussing some topics such as proin congue
             ligula id risus posuere, vel eleifend ex egestas. Sed in turpis leo. 
@@ -23,8 +21,6 @@ const articles = [
             consequat quam. Vivamus accumsan dui in facilisis aliquet.`,]
     }, {
         name: 'learn-node',
-        upvotes: 0,
-        comments: [],
         title: 'How to Build a Node Server in 10 Minutes',
         content: [`In this article, we're going to be talking looking at a very quick way
             to set up a Node.js server. We'll be discussing some topics such as proin congue
@@ -44,9 +40,7 @@ const articles = [
             interdum, nibh elit congue tellus, ac vulputate urna lorem nec nisi. Morbi id 
             consequat quam. Vivamus accumsan dui in facilisis aliquet.`,]
     }, {
-        name: 'mongodb',
-        upvotes: 0,
-        comments: [],
+        name: 'learn-mongodb',
         title: 'Learn MongoDB',
         content: [`Today is the day I talk about something which scares most people: resumes.
             In reality, I'm not sure why people have such a hard time with proin congue
@@ -65,6 +59,10 @@ const articles = [
             sed lorem ultricies, eget ornare leo luctus. Morbi vehicula, nulla eu tempor 
             interdum, nibh elit congue tellus, ac vulputate urna lorem nec nisi. Morbi id 
             consequat quam. Vivamus accumsan dui in facilisis aliquet.`,]
+    }, {
+        name: 'learn-js',
+        title: 'Learn javascript',
+        content: [`Javascript`, `facilisis aliquet.`, `3rd paragraph`,]
     },
 ];
 export default articles;

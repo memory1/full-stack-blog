@@ -1,7 +1,6 @@
 import fs from 'fs';
 import admin from "firebase-admin";
 import express from 'express';
-import {MongoClient} from "mongodb";
 import {db, connectToDb} from "./db.js";
 
 /* let articlesInfo = [
@@ -45,7 +44,7 @@ app.use(async (req, res, next) => {
 app.get('/api/articles/:name', async (req, res) => {
     const {name} = req.params;
     const {uid} = req.user;
-    console.log("uid: " + JSON.stringify(uid))
+    console.log("uid: " + uid)
 
     const article = await db.collection('articles').findOne({name});
     if (article) {
@@ -65,25 +64,25 @@ app.use((req, res, next) => {
     }
 });
 
-/* app.get('/api/articles', async (req, res) => {
-    const client = new MongoClient('mongodb://127.0.0.1:27017');
-    await client.connect();
-    const db = client.db('react-blog-db')
+app.get('/api/articles', async (req, res) => {
     const article = await db.collection('articles').find();
-    res.send(article)
-}) */
+    console.log(article)
+    res.json(article)
+})
 
 app.put('/api/articles/:name/upvote', async (req, res) => {
     const {name} = req.params;
     const {uid} = req.user;
 
+    console.log("uid: " + uid)
+    console.log(req.url)
     const article = await db.collection('articles').findOne({name});
     if (article) {
         const upvoteIds = article.upvoteIds || [];
-        const canUpvote = uid && ! upvoteIds.include(uid);
+        const canUpvote = uid && ! upvoteIds.includes(uid);
         if (canUpvote) {
             await db.collection('articles').updateOne({
-                names
+                name
             }, {
                 $inc: {
                     upvotes: 1
@@ -94,7 +93,8 @@ app.put('/api/articles/:name/upvote', async (req, res) => {
             });
         }
         const updatedArticle = await db.collection('articles').findOne({name});
-        res.json(updatedArticle);
+        console.log("updatedArticle: " + updatedArticle);
+        res.send("Upvoted");
     } else {
         res.send(`That articles doesn\'t exist`);
     }

@@ -40,6 +40,8 @@ const ArticlePage = () => {
         const response = await axios.put(`/api/articles/${articleId}/upvote`, null, {headers});
         const updatedArticle = response.data;
         setArticleInfo(updatedArticle);
+        console.log("updatedArticle: " + updatedArticle);
+
     }
 
     if (! article) {
@@ -50,6 +52,8 @@ const ArticlePage = () => {
         <>
             <h1>{
                 article.title
+            }, You can {
+                canUpvote ? 'upvote' : "not upvote"
             }</h1>
             <div className="upvotes-section">
                 {

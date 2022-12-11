@@ -7,7 +7,6 @@ import ArticlesListPage from './pages/ArticlesListPage';
 import ArticlePage from './pages/ArticlePage';
 import NotFoundPage from './pages/NotFoundPage'
 import LoginPage from "./pages/LoginPage";
-import LogoutPage from "./pages/LogoutPage";
 import CreateAccountPage from "./pages/CreateAccountPage.js";
 
 function App() {
@@ -29,8 +28,6 @@ function App() {
                                 element={<ArticlePage/>}/>
                             <Route path='/login'
                                 element={<LoginPage/>}/>
-                            <Route path='/logout'
-                                element={<LogoutPage/>}/>
                             <Route path='/create-account'
                                 element={<CreateAccountPage/>}/>
                             <Route path='*'
